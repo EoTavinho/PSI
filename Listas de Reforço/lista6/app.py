@@ -3,6 +3,14 @@ from flask import Flask, request, render_template, session, redirect, url_for, m
 app = Flask(__name__)
 app.secret_key = 'chave-secreta' # Necessário para gerenciar sessões
 
+usuarios = {
+    'admin': 'senha123',
+    'tavinho': 'chama123',
+    'digas': 'nabota123',
+    'rafael': 'hideonbush'
+}
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -10,7 +18,8 @@ def login():
         password = request.form['password']
 
         # Usuário e senha pré-definidos
-        if username == 'admin' and password == 'senha123':
+        # if username == 'admin' and password == 'senha123':
+        if username in usuarios and usuarios[username] == password:
             # Salvar usuário na sessão
             session['username'] = username
             # Criar um cookie para lembrar o usuário
