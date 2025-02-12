@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel</title>
+</head>
+<body>
+    <h1>Olá, {{ current_user.matricula }}!</h1>
+    <h2>Seus Exercícios</h2>
+
+    {% if exercises %}
+        <ul>
+            {% for exercise in exercises %}
+                <li>
+                    <strong>{{ exercise.name }}</strong>: {{ exercise.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não adicionou nenhum exercício.</p>
+    {% endif %}
+
+    <a href="{{ url_for('add_exercise') }}">Adicionar Exercício</a><br>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

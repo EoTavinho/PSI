@@ -81,11 +81,11 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get_by_id(user_id)
+    return User.get_by_id(int(user_id))  # Convertendo user_id para inteiro
 
 @app.route('/')
 def home():
-    return render_template('home/home.html')
+    return render_template('home.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -95,12 +95,11 @@ def register():
         password = request.form['password']
         
         hashed_password = generate_password_hash(password, method='sha256')
-        hashed_email = generate_password_hash(email, method='sha256')
 
         conn = get_db_connection()
         try:
             conn.execute('INSERT INTO users (matricula, email, password) VALUES (?, ?, ?)',
-                         (matricula, hashed_email, hashed_password))
+                         (matricula, email, hashed_password))  # Não hashear o email
             conn.commit()
             flash('Cadastro realizado com sucesso!')
             return redirect(url_for('login'))
@@ -109,7 +108,7 @@ def register():
         finally:
             conn.close()
 
-    return render_template('auth/register.html')
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -125,7 +124,7 @@ def login():
         else:
             flash('Matrícula ou senha incorretos.')
 
-    return render_template('auth/login.html')
+    return render_template('login.html')
 
 @app.route('/logout')
 @login_required
@@ -136,6 +135,10 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    if not current_user.is_authenticated or current_user.id is None:
+        flash('Erro ao carregar o painel. Por favor, faça login novamente.')
+        return redirect(url_for('login'))
+
     conn = get_db_connection()
     exercises = conn.execute('SELECT * FROM exercises WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
@@ -157,7 +160,7 @@ def add_exercise():
         flash('Exercício adicionado com sucesso!')
         return redirect(url_for('dashboard'))
 
-    return render_template('exercise/add_exercise.html')
+    return render_template('add_exercise.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
