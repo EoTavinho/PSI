@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastrar Médico</title>
+</head>
+<body>
+    <h1>Cadastrar Médico</h1>
+    <form method="POST">
+        Nome: <input type="text" name="nome" required><br>
+        CRM: <input type="text" name="crm" required><br>
+        Telefone: <input type="text" name="telefone" required><br>
+        <input type="submit" value="Cadastrar">
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Voltar para a página inicial</a>
+</body>
+</html>
