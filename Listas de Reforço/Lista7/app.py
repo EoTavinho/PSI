@@ -64,6 +64,14 @@ def cadastro():
     
     return render_template('cadastro.html')
 
+@app.route('/usuarios')
+def listar_usuarios():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    return render_template('usuarios.html', usuarios = usuarios_registrados)
+                        
+
 @app.route('/logout', methods=['POST'])
 def logout():
     # Remover usuário da sessão
