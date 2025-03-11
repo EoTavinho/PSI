@@ -9,7 +9,8 @@
     <h1>Usuários Registrados</h1>
     <ul>
         {% for usuario in usuarios %}
-        <li>{{ usuario.nome }} ({{ usuario.username }})</li>
+        <li>{{ usuario.nome }} ({{ usuario.username }}) - {{ usuario.funcao }}</li>
+        {% endfor %}
     </ul>
     <a href="{{ url_for('dashboard') }}">Voltar ao dashboard</a>
 </body>
