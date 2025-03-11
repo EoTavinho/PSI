@@ -1,3 +1,5 @@
+# Exercício: Criando uma Aplicação Flask Básica
+# Objetivo: Aprender a instalar o Flask, adicionar uma rota simples e executar a aplicação.
 from flask import Flask
 
 app = Flask(__name__)

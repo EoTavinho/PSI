@@ -1,3 +1,6 @@
+# Exercício: Utilizando Sessões e Cookies em Flask
+# Objetivo: Aprender a gerenciar sessões e cookies para armazenar informações do usuário temporariamente e persistente usando Flask.
+
 from flask import Flask, request, render_template, session, redirect, url_for, make_response
 
 app = Flask(__name__)

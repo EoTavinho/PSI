@@ -1,3 +1,6 @@
+# Exercício: Criando um Sistema Completo de Sessões e Cookies com Formulário em Flask
+# Objetivo: Aprender a criar um formulário que armazena informações do usuário usando sessões e cookies, e a processar dados através de requisições GET e POST.
+
 from flask import Flask, render_template, session, redirect, url_for, make_response, request
 
 app = Flask(__name__)

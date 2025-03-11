@@ -1,3 +1,5 @@
+# Exercício: Explorando Redirecionamentos e Templates com Flask
+# Objetivo: Aprender a usar redirecionamento de rotas, templates HTML e URLs dinâmicos na criação de uma aplicação Flask.
 from flask import Flask, redirect, url_for, render_template
 
 app = Flask(__name__)

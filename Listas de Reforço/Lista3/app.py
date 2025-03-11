@@ -1,3 +1,6 @@
+#Exercício: Criando um Formulário com Flask para Processar Requisições GET e POST
+#Objetivo: Aprender a usar formulários em templates Flask, processar dados usando métodos GET e POST, e manipular objetos de requisição com request.
+
 from flask import Flask, request, render_template
 
 app = Flask(__name__)

@@ -1,3 +1,6 @@
+# Exercício: Criando um Sistema de Login com Flask
+# Objetivo: Desenvolver um mecanismo de login que utilize sessões e cookies para gerenciar o acesso do usuário, com uma rota protegida (dashboard) e funcionalidade de logout.
+
 from flask import Flask, request, render_template, session, redirect, url_for, make_response
 
 app = Flask(__name__)
