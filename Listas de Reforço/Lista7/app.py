@@ -4,8 +4,9 @@
 from flask import Flask, request, render_template, session, redirect, url_for, make_response
 
 app = Flask(__name__)
-app.secret_key = 'chave-secreta' # Necessário para gerenciar sessões
+app.secret_key = 'chave-secreta'  # Necessário para gerenciar sessões
 
+# Lista de usuários registrados
 usuarios_registrados = []
 
 
@@ -38,7 +39,7 @@ def dashboard():
     # Verificar se o usuário está na sessão
     username = session.get('username')
     if not username:
-        return redirect(url_for('login')) # Redirecionar para o login se não estiver logado
+        return redirect(url_for('login'))  # Redirecionar para o login se não estiver logado
     
     return render_template('dashboard.html', username=username)
 
@@ -82,7 +83,8 @@ def listar_usuarios():
 def logout():
     # Remover usuário da sessão
     session.pop('username', None)
+    session.pop('funcao', None)
     # Remover o cookie
     resposta = make_response(redirect(url_for('login')))
-    resposta.set_cookie('username', '', max_age=0) # Excluir o cookie
+    resposta.set_cookie('username', '', max_age=0)  # Excluir o cookie
     return resposta
