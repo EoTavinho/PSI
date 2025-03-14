@@ -18,7 +18,7 @@
         {% endif %}
     {% endwith %}
 
-    <form action={{ {{ url_for('register' ) }} method="POST">
+    <form method="POST">
         {{ form.hidden_tag() }}  <!-- Token CSRF -->
         
         <p>{{ form.nome.label }} {{ form.nome() }}</p>

@@ -1,16 +1,16 @@
-from flask import Flask, render_template, request, url_for, redirect, flash
+from flask import Flask, render_template, request, url_for, redirect, flash, session
 from sqlalchemy import create_engine, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase, sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user, login_required
-from forms import RegisterForm
+from forms import RegisterForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'blabla'
 
 # Configuração do banco de dados e sessão
 engine = create_engine('sqlite:///blog.db', echo=True)  # O `echo=True` ajuda a depuração
-SessionLocal = sessionmaker(bind=engine)
+session = Session(bind=engine)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -54,6 +54,10 @@ def index():
     with SessionLocal() as session:
         posts = session.query(Post).all()
     return render_template('index.html', posts=posts, nome=current_user.nome if current_user.is_authenticated else None)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
