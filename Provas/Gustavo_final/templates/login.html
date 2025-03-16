@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
     <h2>Login</h2>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
             <p style="color: red;">{{ message }}</p>
         {% endfor %}
     {% endwith %}
-    
+
     <form method="POST">
         {{ form.hidden_tag() }}
         <p>{{ form.email.label }} {{ form.email() }}</p>
         <p>{{ form.senha.label }} {{ form.senha() }}</p>
         <p>{{ form.submit() }}</p>
     </form>
-</body>
-</html>
+        
+{% endblock %}

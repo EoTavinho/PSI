@@ -8,3 +8,9 @@ class RegisterForm(FlaskForm):
     senha = PasswordField('Senha', validators=[DataRequired(), Length(min=6, message="A senha deve ter pelo menos 6 caracteres.")])
     confirmar_senha = PasswordField('Confirmar Senha', validators=[DataRequired(), EqualTo('senha', message="As senhas devem ser iguais.")])
     submit = SubmitField('Registrar')
+    
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email(message="Digite um email válido.")])
+    senha = PasswordField('Senha', validators=[DataRequired()])
+    submit = SubmitField('Entrar')
+

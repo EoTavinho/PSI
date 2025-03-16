@@ -1,13 +1,8 @@
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
+{% block title %} Registro {% endblock %}
+
+{% block content %}
     <h1>Registro de Usuário</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -43,32 +38,7 @@
 
         <p>{{ form.submit() }}</p>
     </form>
-</body>
-</html>
+{% endblock %}
 
-        <!-- <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Registro de Usuários</title>
-        </head>
-        <body>
-            <h1>Registro de Usuários</h1>
-            <form action="{{ url_for('register' ) }}" method="post">
-                <label for="nome">Nome: </label>
-                <input type="text" placeholder="Nome" name="nome">
-        <br><br>
-                <label for="email">Email: </label>
-                <input type="text" placeholder="Email" name="email">
-        <br><br>
-                <label for="senha">Senha: </label>
-                <input type="password" placeholder="Senha" name="senha">
-        <br><br>
-                <label for="confir_senha">Confirmação de senha: </label>
-                <input type="password" placeholder="Confirmação de senha" name="confir_senha">
-        <br><br>
-                <button type="submit">Cadastro</button>
-            </form>
-        </body>
-        </html> -->
+
+       
