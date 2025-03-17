@@ -4,4 +4,11 @@
 
 {% block content %}
     <h1>Bem-vindo à página Inicial </h1>
+    {% for post in posts %}
+        <div class="listar_post">
+            <h2>{{ post.titulo }}</h2>
+            <p>{{ post.conteudo }}</p>
+            <p><strong>Autor: </strong>{{ post.autor.nome }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}

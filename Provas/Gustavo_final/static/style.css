@@ -1,0 +1,55 @@
+/* Tema Claro (padrão) */
+:root {
+    --bg-color: white;
+    --text-color: black;
+    --nav-bg: #f4f4f4;
+    --nav-text: black;
+    --button-bg: #ddd;
+    --button-text: black;
+    --button-border: #ccc;
+}
+
+/* Tema Escuro */
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: white;
+    --nav-bg: #1e1e1e;
+    --nav-text: white;
+    --button-bg: #333;
+    --button-text: white;
+    --button-border: #555;
+}
+
+/* Aplicar as variáveis no layout */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Navbar */
+header {
+    background-color: var(--nav-bg);
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: var(--nav-text);
+}
+
+/* Botão de alternância */
+#theme-toggle {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--button-border);
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#theme-toggle:hover {
+    background-color: var(--button-border);
+}

@@ -3,7 +3,15 @@
 {% block title %} Criar Posts {% endblock %}
 
 {% block content %}
-
     <h1>Bem vindo à Página de criação de Posts</h1>
     
+    <form action="{{ url_for('criar_post' ) }} " method="post">
+        <label for="titulo">Titulo do post</label> <br>
+        <input type="text" id="titulo" name="titulo" required>
+<br><br>
+        <label for="conteudo">Conteudo do post: </label> <br>
+        <textarea name="conteudo" id="conteudo" rows="5" required></textarea>
+<br><br>
+        <button type="submit">Criar Post</button>
+    </form>
 {% endblock %}

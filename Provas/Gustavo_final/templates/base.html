@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Meu Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body data-theme="{{ theme }}">
     <header>
         <nav>
             <ul>
@@ -21,6 +22,8 @@
                 {% endif %}
             </ul>
         </nav>
+
+        <button id="theme-toggle">Alternar Tema</button>
     </header>
     
     <main>
@@ -30,5 +33,11 @@
     <footer>
         <p>&copy; 2025 Meu Blog</p>
     </footer>
+    
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            window.location.href = "{{ url_for('toggle_theme') }}";
+        });
+    </script>
 </body>
 </html>

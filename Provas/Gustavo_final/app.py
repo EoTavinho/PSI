@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, flash
+from flask import Flask, render_template, request, url_for, redirect, flash, make_response
 from sqlalchemy import create_engine, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase, sessionmaker, Session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,12 +52,13 @@ with app.app_context():
 @login_required # Impede q o usuario acesse qqr página sem fazer login através do flask-login
 def index():
     posts = session.query(Post).all() #Tirei o SessionLocal
-    return render_template('index.html', posts=posts, nome=current_user.nome if current_user.is_authenticated else None)
+    theme = request.cookies.get('theme', 'light')  # Obtém o tema do cookie
+    return render_template('index.html', posts=posts, nome=current_user.nome if current_user.is_authenticated else None, theme=theme)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-
+    theme = request.cookies.get('theme', 'light')  # Obtém o tema do cookie
     if form.validate_on_submit(): # Baixei o email-validator
         email = form.email.data
         senha = form.senha.data
@@ -71,11 +72,12 @@ def login():
         else:
             flash("Email ou senha incorretos!", "danger")
 
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, theme=theme)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
+    theme = request.cookies.get('theme', 'light')  # Obtém o tema do cookie
 
     if form.validate_on_submit(): #Baixei o email-validator
         nome = form.nome.data
@@ -92,11 +94,12 @@ def register():
         flash("Cadastro realizado com sucesso!", "success")
         return redirect(url_for('login'))
 
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, theme=theme)
 
 @app.route('/criar_post', methods=['GET', 'POST'])
 @login_required # Impede q o usuario acesse qqr página sem fazer login através do flask-login
 def criar_post():
+    theme = request.cookies.get('theme', 'light')  # Obtém o tema do cookie
     if request.method == 'POST':
         titulo = request.form['titulo']
         conteudo = request.form['conteudo']
@@ -110,7 +113,28 @@ def criar_post():
         flash("Post criado com sucesso!", "success")
         return redirect(url_for('index'))
 
-    return render_template('criar_post.html')
+    return render_template('criar_post.html', theme=theme)
+
+@app.route('/listar_post', methods=['GET', 'POST'])
+@login_required # Impede q o usuario acesse qqr página sem fazer login através do flask-login
+def listar_post():
+    posts = session.query(Post).join(User).all()  # Junta os posts com os usuários
+    theme = request.cookies.get('theme', 'light') # Obtém o tema do cookie
+    return render_template('index.html', posts=posts, theme=theme)
+
+@app.route('/toggle_theme')
+def toggle_theme():
+    # Obtém o tema atual do cookie (padrão: 'light')
+    theme = request.cookies.get('theme', 'light')
+
+    # Alterna entre 'light' e 'dark'
+    new_theme = 'dark' if theme == 'light' else 'light'
+
+    # Redireciona para a página anterior, definindo o cookie
+    response = make_response(redirect(request.referrer or url_for('index')))
+    response.set_cookie('theme', new_theme, max_age=60*60*24) # Cookie valido por 1 dia
+
+    return response
 
 @app.route('/logout')
 @login_required # Impede q o usuario acesse qqr página sem fazer login através do flask-login
