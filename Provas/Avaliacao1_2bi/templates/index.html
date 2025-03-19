@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Página inicial{% endblock %}
+{% block content %}
+    <h1>Bem-vindo à Página inicial</h1>
+    {% for usuario in usuarios %}
+        <h2>{{ usuario['nome'] }}</h2>
+    {% endfor %}
+    <a href="{{ url_for('register' ) }}">Registro</a>
+{% endblock %}

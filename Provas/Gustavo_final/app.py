@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, make_response
 from sqlalchemy import create_engine, String, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase, sessionmaker, Session
+from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase, Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user, login_required
 from forms import RegisterForm, LoginForm
