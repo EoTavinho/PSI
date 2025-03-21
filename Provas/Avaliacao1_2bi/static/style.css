@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+}
+
+body, html {
+    height: 100vh;
+}
+
+nav {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    background-color: bisque;
+}
+
+nav h1 {
+    font-size: 34px;
+    color: white;
+    
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+
+main form {
+    padding: 20px 40px;
+    justify-content: space-between;
+    display: flex;
+    width: 370px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    width: 450px;
+    background-color: bisque;
+    border-radius: 18px;
+    
+    list-style-type: none;
+
+}
+
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 130%;
+}
+
+form button{
+    border: 1px solid black;
+    background-color: blue;
+    padding: 3px;
+    color: white;
+
+}
+form input{
+    border: 1px solid black;
+    border-radius: 10px;
+}
