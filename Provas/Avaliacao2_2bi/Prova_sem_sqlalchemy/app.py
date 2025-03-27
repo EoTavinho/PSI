@@ -5,7 +5,7 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'blabla '
 
 # Configura o Flask-Login
 login_manager = LoginManager()
@@ -41,6 +41,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT NOT NULL,
+            usuario_que_cadastrou TEXT NOT NULL,
             user_id INTEGER,
             FOREIGN KEY(user_id) REFERENCES users(id)
         )
@@ -94,7 +95,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         
-        hashed_password = generate_password_hash(password, method='sha256')
+        hashed_password = generate_password_hash(password)
 
         conn = get_db_connection()
         try:
@@ -142,7 +143,7 @@ def dashboard():
     conn = get_db_connection()
     exercises = conn.execute('SELECT * FROM exercises WHERE user_id = ?', (current_user.id,)).fetchall()
     conn.close()
-    return render_template('dashboard/dashboard.html', exercises=exercises)
+    return render_template('dashboard.html', exercises=exercises)
 
 @app.route('/add_exercise', methods=['GET', 'POST'])
 @login_required
@@ -150,10 +151,11 @@ def add_exercise():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        
+        usuario_que_cadastrou = request.form['usuario_que_cadastrou']
+
         conn = get_db_connection()
-        conn.execute('INSERT INTO exercises (name, description, user_id) VALUES (?, ?, ?)',
-                     (name, description, current_user.id))
+        conn.execute('INSERT INTO exercises (name, description, usuario_que_cadastrou, user_id) VALUES (?, ?, ?, ?)',
+                     (name, description, usuario_que_cadastrou, current_user.id))
         conn.commit()
         conn.close()
 
