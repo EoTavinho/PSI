@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}vizu{% endblock %}
+
+{% block content %}
+    <h1>Bem vindo à página de vizualização de usuario</h1>
+    {% for usuario in usuarios %}
+        <ul>
+            <li>Nome: {{ usuario['nome'] }}</li>
+            <li>Email: {{ usuario['email'] }}</li>
+        </ul>
+    {% endfor %}
+{% endblock %}
